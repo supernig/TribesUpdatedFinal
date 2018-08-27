@@ -31,7 +31,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=;"
++ "pwd=root;"
 + "SslMode=none;"
 + "database=db";
 
@@ -49,6 +49,16 @@ namespace WindowsFormsApplication2
                 }
                 if (e.ColumnIndex == 1)
                 {
+                    DialogResult dialogResult = MessageBox.Show("Are you sure?", "Pls Dont :'(", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        //do something
+                    
+
                     conn.ConnectionString = myConnectionString;
                     conn.Open();
                     using (MySqlConnection con = new MySqlConnection(myConnectionString))
@@ -56,9 +66,9 @@ namespace WindowsFormsApplication2
                         using (MySqlCommand cmd = new MySqlCommand("DELETE FROM items WHERE id =" + dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(), conn))
                         {
                             cmd.CommandType = CommandType.Text;
-                            if (cmd.ExecuteNonQuery() > 0 )
+                            if (cmd.ExecuteNonQuery() > 0)
                             {
-                         
+
 
 
                                 using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
@@ -98,6 +108,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             }
                         }
                     }
+                }
                     conn.Close();
 
                 }
@@ -109,7 +120,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
              string myConnectionString;
              myConnectionString = "server=127.0.0.1;"
  + "uid=root;"
- + "pwd=;"
+ + "pwd=root;"
  + "SslMode=none;"
  + "database=db";
              var a = new EquipmentUI();
@@ -161,7 +172,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
              string myConnectionString;
              myConnectionString = "server=127.0.0.1;"
  + "uid=root;"
- + "pwd=;"
+ + "pwd=root;"
  + "SslMode=none;"
  + "database=db";
              var a = new EquipmentUI();
