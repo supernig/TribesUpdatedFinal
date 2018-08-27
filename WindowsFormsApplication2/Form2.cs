@@ -23,12 +23,12 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=root;"
++ "pwd=;"
 + "SslMode=none;"
 + "database=db";
             conn.ConnectionString = myConnectionString;
             conn.Open();
-
+            var x = comboBox1.SelectedIndex + 1;
 
             using (MySqlCommand cmd1 = new MySqlCommand("Select COUNT(*) FROM itemcontent where modelNumber ='" + textBox1.Text + "' and itemID =" + EquipmentUI.sendtext, conn))
             {
@@ -41,9 +41,9 @@ namespace WindowsFormsApplication2
 
                 }
                 myreader.Close();
-                if (i > 0 )
+                if (i > 0 && x != 2)
                 {
-                    MessageBox.Show("No change detected", "Error. ",
+                    MessageBox.Show("No change detected or another item exists with the same name in the database.", "Error. ",
    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                    
                 }
@@ -52,7 +52,7 @@ namespace WindowsFormsApplication2
                 {
 
 
-                    if (textBox1.Text == "")
+                    if (textBox1.Text == "" )
                     {
                         MessageBox.Show("Dont leave name blank.", "Error. ",
         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -61,16 +61,16 @@ namespace WindowsFormsApplication2
                     {
                         using (MySqlConnection con = new MySqlConnection(myConnectionString))
                         {
-                            using (MySqlCommand cmd = new MySqlCommand(" UPDATE itemcontent SET modelNumber='" + textBox1.Text + "' WHERE itemID = '" + EquipmentUI.sendtext + "' and id ="+ViewUI.forEditID, conn))
+                            using (MySqlCommand cmd = new MySqlCommand(" UPDATE itemcontent SET modelNumber='" + textBox1.Text + "' , tagID = "+x+" WHERE itemID = '" + EquipmentUI.sendtext + "' and id ="+ViewUI.forEditID, conn))
                             {
                                 cmd.CommandType = CommandType.Text;
                                 if (cmd.ExecuteNonQuery() > 0)
                                 {
-                                    MessageBox.Show("Successfully added to database.", "Successful. ",
+                                    MessageBox.Show("Successfully updated to database.", "Successful. ",
     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-
-                                    this.Close();
+                                    (System.Windows.Forms.Application.OpenForms["Form2"] as Form2).Close();
+                                 
                                     (System.Windows.Forms.Application.OpenForms["EquipmentUI"] as EquipmentUI).refreshni();
                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView1.DefaultCellStyle.SelectionBackColor = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView1.DefaultCellStyle.BackColor;
                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView1.DefaultCellStyle.SelectionForeColor = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView1.DefaultCellStyle.ForeColor;
@@ -78,7 +78,7 @@ namespace WindowsFormsApplication2
 
                                     using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
                                     {
-                                        using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext, conn))
+                                        using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID < 2", conn))
                                         {
                                             cmd.CommandType = CommandType.Text;
                                             using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd2))
@@ -108,9 +108,48 @@ namespace WindowsFormsApplication2
                                             }
                                         }
                                     }
+
+
+                                    using (MySqlConnection con2 = new MySqlConnection(myConnectionString))
+                                    {
+                                        using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 2", conn))
+                                        {
+                                            cmd.CommandType = CommandType.Text;
+                                            using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd2))
+                                            {
+                                                using (DataTable dt = new DataTable())
+                                                {
+
+                                                
+
+
+                                                    sda.Fill(dt);
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.DataSource = dt;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.ReadOnly = false;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.ClearSelection();
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].Visible = false;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[3].Visible = false;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].HeaderCell.Value = "Name / Model Number";
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].HeaderCell.Value = "";
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].Width = 50;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[0].HeaderCell.Value = "";
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[0].Width = 100;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
+
+                        
+
                     }
 
                 }
@@ -128,6 +167,7 @@ namespace WindowsFormsApplication2
         private void Form2_Load(object sender, EventArgs e)
         {
             textBox1.Text = ViewUI.forEdit;
+            comboBox1.SelectedIndex =0;
         }
     }
 }

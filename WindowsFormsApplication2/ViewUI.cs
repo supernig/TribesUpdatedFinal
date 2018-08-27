@@ -137,7 +137,7 @@ namespace WindowsFormsApplication2
 
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=root;"
++ "pwd=;"
 + "SslMode=none;"
 + "database=db";
 
@@ -146,7 +146,7 @@ namespace WindowsFormsApplication2
 
             using (MySqlConnection con = new MySqlConnection(myConnectionString))
             {
-                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,items.name,items.stocks,category.description,items.description,items.isDeployable,items.isDamaged,items.isOnrepair,items.isRented,items.isDeployed,items.isDamagedBeyondRepair FROM items left join category on items.categoryID = category.id where items.id =" + EquipmentUI.sendtext, conn))
+                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,items.name,items.stocks,category.description,items.description,items.isDeployable,items.isDamaged,items.isOnrepair,items.isRented,items.isDeployed,items.isDamagedBeyondRepair FROM items left join category on items.categoryID = category.id where items.id =" + EquipmentUI.sendtext , conn))
                 {
                     cmd.CommandType = CommandType.Text;
                     using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
@@ -182,7 +182,7 @@ namespace WindowsFormsApplication2
          
             using (MySqlConnection con = new MySqlConnection(myConnectionString))
             {
-                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext, conn))
+                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID < 2", conn))
                 {
                     cmd.CommandType = CommandType.Text;
                     using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
@@ -213,6 +213,45 @@ namespace WindowsFormsApplication2
                 }
             }
 
+            conn.Close();
+            dataGridView2.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
+            dataGridView2.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+            using (MySqlConnection con = new MySqlConnection(myConnectionString))
+            {
+                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 2", conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
+                    {
+                        using (DataTable dt = new DataTable())
+                        {
+
+                            sda.Fill(dt);
+                            dataGridView2.DataSource = dt;
+                            dataGridView2.ReadOnly = false;
+                            dataGridView2.ClearSelection();
+                            dataGridView2.Columns[1].Visible = false;
+                            dataGridView2.Columns[3].Visible = false;
+                            dataGridView2.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView2.Columns[2].HeaderCell.Value = "Name / Model Number";
+                            dataGridView2.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView2.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+                            dataGridView2.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView2.Columns[1].HeaderCell.Value = "";
+                            dataGridView2.Columns[1].Width = 50;
+                            dataGridView2.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView2.Columns[0].HeaderCell.Value = "";
+                            dataGridView2.Columns[0].Width = 100;
+                            dataGridView2.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                        }
+                    }
+                }
+            }
+
 
 
         }
@@ -233,7 +272,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=root;"
++ "pwd=;"
 + "SslMode=none;"
 + "database=db";
 
@@ -275,7 +314,7 @@ namespace WindowsFormsApplication2
 
                                     using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
                                     {
-                                        using (MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext, conn))
+                                        using (MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID != 2", conn))
                                         {
                                             cmd1.CommandType = CommandType.Text;
                                             using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd1))
@@ -320,6 +359,100 @@ namespace WindowsFormsApplication2
         {
             var a = new Form1();
             a.Show();
+
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+               var senderGrid = (DataGridView)sender;
+               if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+               {
+                   if (e.ColumnIndex == 0)
+                   {
+
+                       DialogResult dialogResult = MessageBox.Show("Are you sure?", "Pls Dont :'(", MessageBoxButtons.YesNo);
+                       if (dialogResult == DialogResult.No)
+                       {
+                           //do something else
+                       }
+                       else
+                       {
+                          
+                           MySql.Data.MySqlClient.MySqlConnection conn = new MySqlConnection();
+                           string myConnectionString;
+                           myConnectionString = "server=127.0.0.1;"
+               + "uid=root;"
+               + "pwd=;"
+               + "SslMode=none;"
+               + "database=db";
+                           conn.ConnectionString = myConnectionString;
+                           conn.Open();
+                            
+                                       using (MySqlConnection con = new MySqlConnection(myConnectionString))
+                                       {
+                                           using (MySqlCommand cmd = new MySqlCommand(" UPDATE itemcontent SET  tagID = 3 WHERE itemID = '" + EquipmentUI.sendtext + "' and id = " + dataGridView2.Rows[e.RowIndex].Cells[3].Value.ToString(), conn))
+                                           {
+                                               cmd.CommandType = CommandType.Text;
+                                               if (cmd.ExecuteNonQuery() > 0)
+                                               {
+                                                   MessageBox.Show("Successfully MOVED to on repair.", "Successful. ",
+                   MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+
+                                                
+                                                   dataGridView2.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
+                                                   dataGridView2.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+                                                  
+
+
+                                                   using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
+                                                   {
+                                                       using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 2", conn))
+                                                       {
+                                                           cmd.CommandType = CommandType.Text;
+                                                           using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd2))
+                                                           {
+                                                               using (DataTable dt = new DataTable())
+                                                               {
+
+                                                               
+                                                                   sda.Fill(dt);
+                                                                   dataGridView2.DataSource = dt;
+                                                                   dataGridView2.ReadOnly = false;
+                                                                   dataGridView2.ClearSelection();
+                                                                   dataGridView2.Columns[1].Visible = false;
+                                                                   //dataGridView2.Columns[3].Visible = false;
+                                                                   dataGridView2.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                   dataGridView2.Columns[2].HeaderCell.Value = "Name / Model Number";
+                                                                   dataGridView2.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                   dataGridView2.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+                                                                   dataGridView2.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                   dataGridView2.Columns[1].HeaderCell.Value = "";
+                                                                   dataGridView2.Columns[1].Width = 50;
+                                                                   dataGridView2.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                   dataGridView2.Columns[0].HeaderCell.Value = "";
+                                                                   dataGridView2.Columns[0].Width = 100;
+                                                                   dataGridView2.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                                                               }
+                                                           }
+                                                       }
+                                                   }
+                                               }
+                                           }
+                                       }
+                                   
+
+                               
+                           
+
+
+                           conn.Close();
+                       }
+
+                   }
+               
+               }//do something
 
         }
     }

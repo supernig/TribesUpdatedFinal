@@ -31,7 +31,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=root;"
++ "pwd=;"
 + "SslMode=none;"
 + "database=db";
 
@@ -120,7 +120,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
              string myConnectionString;
              myConnectionString = "server=127.0.0.1;"
  + "uid=root;"
- + "pwd=root;"
+ + "pwd=;"
  + "SslMode=none;"
  + "database=db";
              var a = new EquipmentUI();
@@ -172,7 +172,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
              string myConnectionString;
              myConnectionString = "server=127.0.0.1;"
  + "uid=root;"
- + "pwd=root;"
+ + "pwd=;"
  + "SslMode=none;"
  + "database=db";
              var a = new EquipmentUI();

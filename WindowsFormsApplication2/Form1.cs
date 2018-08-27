@@ -23,7 +23,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=root;"
++ "pwd=;"
 + "SslMode=none;"
 + "database=db";
             conn.ConnectionString = myConnectionString;
@@ -74,7 +74,7 @@ namespace WindowsFormsApplication2
 
                                     using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
                                     {
-                                        using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext, conn))
+                                        using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID < 2", conn))
                                         {
                                             cmd.CommandType = CommandType.Text;
                                             using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd2))
