@@ -22,15 +22,7 @@ namespace WindowsFormsApplication2
           
             TextBox1.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).Label2.Text;
            ComboBox1.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).Label4.Text;
-           TextBox2.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).Label6.Text;
-           TextBox3.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).Label8.Text;
-           TextBox4.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).Label13.Text;
-           TextBox5.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).Label14.Text;
-           TextBox6.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).Label15.Text;
-           TextBox7.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).Label16.Text;
-           dep.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dep.Text;
-           dbr.Text = (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dbr.Text;
-            u = TextBox4.Text;
+       
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -39,23 +31,16 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=root;"
++ "pwd=;"
 + "SslMode=none;"
 + "database=db";
             conn.ConnectionString = myConnectionString;
             conn.Open();
-            var t = int.Parse(TextBox4.Text);
-            var u = int.Parse(dbr.Text);
-            var d = t - u;
+        
+     
             var x = int.Parse(ComboBox1.SelectedIndex.ToString());
             var i = x + 1;
-            if (d <=-1)
-            {
-                MessageBox.Show("Invalid Inputs", "Error ",
-  MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-           else
-            {
+          
            
                 if (TextBox1.Text == "")
                 {
@@ -66,7 +51,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 {
                     using (MySqlConnection con = new MySqlConnection(myConnectionString))
                     {
-                        using (MySqlCommand cmd = new MySqlCommand(" UPDATE `db`.`items` SET `name`='" + TextBox1.Text + "',`stocks`=" + TextBox3.Text + ",`categoryID`=" + i + ",`description`='" + TextBox2.Text + "',`isDeployable`=" + d.ToString()+ ",`isDamaged`=" + TextBox5.Text + ",`isOnrepair`=" + TextBox6.Text + ",`isRented`=" + TextBox7.Text + ",`isDeployed`=" + dep.Text + ",`isDamagedBeyondRepair`=" + dbr.Text + " WHERE (`id` = '" + EquipmentUI.sendtext + "');", conn))
+                        using (MySqlCommand cmd = new MySqlCommand(" UPDATE `db`.`items` SET `name`='" + TextBox1.Text + "',`stocks`=0,`categoryID`=" + i + ",`description`='" + TextBox2.Text + "',`isDeployable`=0,`isDamaged`=0,`isOnrepair`=0,`isRented`=0,`isDeployed`=0,`isDamagedBeyondRepair`=0 WHERE (`id` = '" + EquipmentUI.sendtext + "');", conn))
                         {
                             cmd.CommandType = CommandType.Text;
                             if (cmd.ExecuteNonQuery() > 0)
@@ -82,7 +67,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
 
-            }
+            
 
             
             conn.Close();
@@ -100,10 +85,6 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
         private void TextBox3_TextChanged(object sender, EventArgs e)
         {
-            if(dbr.Text != "")
-            {
-                TextBox4.Text = TextBox3.Text;
-            }
             
         }
 
@@ -165,7 +146,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
         private void TextBox4_TextChanged(object sender, EventArgs e)
         {
-            u = TextBox4.Text;
+      
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)

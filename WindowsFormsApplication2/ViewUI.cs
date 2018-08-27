@@ -135,7 +135,7 @@ namespace WindowsFormsApplication2
 
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=root;"
++ "pwd=;"
 + "SslMode=none;"
 + "database=db";
 
@@ -154,7 +154,7 @@ namespace WindowsFormsApplication2
                         {
                             Label2.Text = myreader.GetValue(1).ToString();
                             Label4.Text = myreader.GetValue(3).ToString();
-                            Label8.Text = myreader.GetValue(2).ToString();
+                           
                             if (myreader.GetValue(4).ToString()=="")
                             {
                                 Label6.Text = "Not specified";
@@ -164,12 +164,7 @@ namespace WindowsFormsApplication2
                                 Label6.Text = myreader.GetValue(4).ToString();
                             }
 
-                            Label13.Text = myreader.GetValue(5).ToString();
-                            Label14.Text = myreader.GetValue(6).ToString();
-                            Label15.Text = myreader.GetValue(7).ToString();
-                            Label16.Text = myreader.GetValue(8).ToString();
-                            dep.Text = myreader.GetValue(9).ToString();
-                            dbr.Text = myreader.GetValue(10).ToString();
+                         
                             this.Text = myreader.GetValue(1).ToString();
                         }
                         myreader.Close();
@@ -178,6 +173,56 @@ namespace WindowsFormsApplication2
             }
             conn.Close();
 
+
+            
+            var x = new EquipmentUI();
+            dataGridView1.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
+            dataGridView1.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+            using (MySqlConnection con = new MySqlConnection(myConnectionString))
+            {
+                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,items.name,items.stocks FROM items ", conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
+                    {
+                        using (DataTable dt = new DataTable())
+                        {
+
+                            sda.Fill(dt);
+                            dataGridView1.DataSource = dt;
+                            dataGridView1.ReadOnly = false;
+                            dataGridView1.ClearSelection();
+                            dataGridView1.Columns[2].Visible = false;
+                            dataGridView1.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView1.Columns[3].HeaderCell.Value = "Name";
+                            dataGridView1.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView1.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView1.Columns[4].HeaderCell.Value = "Stock";
+                            dataGridView1.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView1.Columns[1].HeaderCell.Value = "";
+                            dataGridView1.Columns[1].Width = 50;
+                            dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView1.Columns[0].HeaderCell.Value = "";
+                            dataGridView1.Columns[0].Width = 50;
+                            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }
