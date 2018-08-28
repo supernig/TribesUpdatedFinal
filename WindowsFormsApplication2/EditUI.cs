@@ -31,7 +31,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=;"
++"pwd=root;"
 + "SslMode=none;"
 + "database=db";
             conn.ConnectionString = myConnectionString;
