@@ -319,6 +319,8 @@ namespace WindowsFormsApplication2
                                         
                                         dataGridView4.DataSource = dt;
                                         dataGridView4.ClearSelection();
+                                        dataGridView4.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                                        dataGridView4.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                         dataGridView4.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                         dataGridView4.Columns[1].HeaderCell.Value = "Name / Model Number";
                                         dataGridView4.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
