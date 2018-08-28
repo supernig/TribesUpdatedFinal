@@ -129,9 +129,8 @@ namespace WindowsFormsApplication2
         private void Form3_Load(object sender, EventArgs e)
         {
             var a = new EquipmentUI();
-   
 
-
+            
             MySql.Data.MySqlClient.MySqlConnection conn = new MySqlConnection();
             string myConnectionString;
 
@@ -214,8 +213,8 @@ namespace WindowsFormsApplication2
             }
 
             conn.Close();
-            dataGridView2.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
-            dataGridView2.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+            dataGridView2.DefaultCellStyle.SelectionBackColor = dataGridView2.DefaultCellStyle.BackColor;
+            dataGridView2.DefaultCellStyle.SelectionForeColor = dataGridView2.DefaultCellStyle.ForeColor;
             conn.ConnectionString = myConnectionString;
             conn.Open();
 
@@ -251,6 +250,86 @@ namespace WindowsFormsApplication2
                     }
                 }
             }
+
+
+            conn.Close();
+            dataGridView3.DefaultCellStyle.SelectionBackColor = dataGridView2.DefaultCellStyle.BackColor;
+            dataGridView3.DefaultCellStyle.SelectionForeColor = dataGridView2.DefaultCellStyle.ForeColor;
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+            using (MySqlConnection con = new MySqlConnection(myConnectionString))
+            {
+                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 3", conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
+                    {
+                        using (DataTable dt = new DataTable())
+                        {
+
+                            sda.Fill(dt);
+                            dataGridView3.DataSource = dt;
+                            dataGridView3.ReadOnly = false;
+                            dataGridView3.ClearSelection();
+                            dataGridView3.Columns[1].Visible = false;
+                            dataGridView3.Columns[3].Visible = false;
+                            dataGridView3.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView3.Columns[2].HeaderCell.Value = "Name / Model Number";
+                            dataGridView3.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView3.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+                            dataGridView3.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView3.Columns[1].HeaderCell.Value = "";
+                            dataGridView3.Columns[1].Width = 50;
+                            dataGridView3.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView3.Columns[0].HeaderCell.Value = "";
+                            dataGridView3.Columns[0].Width = 100;
+                            dataGridView3.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                        }
+                    }
+                }
+            }
+
+            conn.Close();
+            dataGridView4.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
+            dataGridView4.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+
+          
+
+                        using (MySqlConnection con2 = new MySqlConnection(myConnectionString))
+                        {
+                            using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT repairlogs.daterepaired,itemcontent.modelNumber from repairlogs inner JOIN itemcontent on  itemcontent.id = repairlogs.itemID where itemcontent.itemID = " + EquipmentUI.sendtext + " and repairlogs.daterepaired != '0000-00-00'", conn))
+                            {
+                                cmd2.CommandType = CommandType.Text;
+                                using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd2))
+                                {
+                                    using (DataTable dt = new DataTable())
+                                    {
+
+                                        sda.Fill(dt);
+                                        dataGridView4.DataSource = dt;
+                                        dataGridView4.ReadOnly = false;
+                                        dataGridView4.ClearSelection();
+                                        dataGridView4.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                        dataGridView4.Columns[1].HeaderCell.Value = "Date & Time";
+                                        dataGridView4.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                        dataGridView4.Columns[1].DefaultCellStyle.ForeColor = Color.Black;
+                                        dataGridView4.Columns[0].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                        dataGridView4.Columns[0].HeaderCell.Value = "Name / Model Number";
+                                        dataGridView4.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                        dataGridView4.Columns[0].DefaultCellStyle.ForeColor = Color.Black;
+                                        dataGridView4.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                        dataGridView4.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                    }
+                                }
+                            }
+                        }
+                    
+                
+            
 
 
 
@@ -314,7 +393,7 @@ namespace WindowsFormsApplication2
 
                                     using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
                                     {
-                                        using (MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID != 2", conn))
+                                        using (MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 1", conn))
                                         {
                                             cmd1.CommandType = CommandType.Text;
                                             using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd1))
@@ -438,6 +517,40 @@ namespace WindowsFormsApplication2
                                                            }
                                                        }
                                                    }
+
+                                                   using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
+                                                   {
+                                                       using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 3", conn))
+                                                       {
+                                                           cmd.CommandType = CommandType.Text;
+                                                           using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd2))
+                                                           {
+                                                               using (DataTable dt = new DataTable())
+                                                               {
+
+
+                                                                   sda.Fill(dt);
+                                                                   dataGridView3.DataSource = dt;
+                                                                   dataGridView3.ReadOnly = false;
+                                                                   dataGridView3.ClearSelection();
+                                                                   dataGridView3.Columns[1].Visible = false;
+                                                                   //dataGridView2.Columns[3].Visible = false;
+                                                                   dataGridView3.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                   dataGridView3.Columns[2].HeaderCell.Value = "Name / Model Number";
+                                                                   dataGridView3.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                   dataGridView3.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+                                                                   dataGridView3.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                   dataGridView3.Columns[1].HeaderCell.Value = "";
+                                                                   dataGridView3.Columns[1].Width = 50;
+                                                                   dataGridView3.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                   dataGridView3.Columns[0].HeaderCell.Value = "";
+                                                                   dataGridView3.Columns[0].Width = 100;
+                                                                   dataGridView3.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                                                               }
+                                                           }
+                                                       }
+                                                   }
                                                }
                                            }
                                        }
@@ -453,6 +566,185 @@ namespace WindowsFormsApplication2
                    }
                
                }//do something
+
+        }
+        public string tester = "";
+        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            tester = dataGridView3.Rows[e.RowIndex].Cells[3].Value.ToString();
+            var senderGrid = (DataGridView)sender;
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == 0)
+                {
+
+
+                    DialogResult dialogResult = MessageBox.Show("Are you sure?", "Pls Dont :'(", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+                    else
+                    {
+
+                        MySql.Data.MySqlClient.MySqlConnection conn = new MySqlConnection();
+                        string myConnectionString;
+                        myConnectionString = "server=127.0.0.1;"
+            + "uid=root;"
+            + "pwd=;"
+            + "SslMode=none;"
+            + "database=db";
+                        conn.ConnectionString = myConnectionString;
+                        conn.Open();
+
+                        using (MySqlConnection con = new MySqlConnection(myConnectionString))
+                        {
+                            using (MySqlCommand cmd = new MySqlCommand(" UPDATE itemcontent SET  tagID = 1 WHERE itemID = '" + EquipmentUI.sendtext + "' and id = " + dataGridView3.Rows[e.RowIndex].Cells[3].Value.ToString(), conn))
+                            {
+                                cmd.CommandType = CommandType.Text;
+                                if (cmd.ExecuteNonQuery() > 0)
+                                {
+                                    MessageBox.Show("Successfully MOVED to on repair.", "Successful. ",
+    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+
+
+                                    dataGridView3.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
+                                    dataGridView3.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+
+
+
+                                    using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
+                                    {
+                                        using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 3", conn))
+                                        {
+                                            cmd.CommandType = CommandType.Text;
+                                            using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd2))
+                                            {
+                                                using (DataTable dt = new DataTable())
+                                                {
+
+
+                                                    sda.Fill(dt);
+                                                    dataGridView3.DataSource = dt;
+                                                    dataGridView3.ReadOnly = false;
+                                                    dataGridView3.ClearSelection();
+                                                    dataGridView3.Columns[1].Visible = false;
+                                                    //dataGridView2.Columns[3].Visible = false;
+                                                    dataGridView3.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    dataGridView3.Columns[2].HeaderCell.Value = "Name / Model Number";
+                                                    dataGridView3.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    dataGridView3.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+                                                    dataGridView3.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    dataGridView3.Columns[1].HeaderCell.Value = "";
+                                                    dataGridView3.Columns[1].Width = 50;
+                                                    dataGridView3.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    dataGridView3.Columns[0].HeaderCell.Value = "";
+                                                    dataGridView3.Columns[0].Width = 100;
+                                                    dataGridView3.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+                                    using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
+                                    {
+                                        using (MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 1", conn))
+                                        {
+                                            cmd1.CommandType = CommandType.Text;
+                                            using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd1))
+                                            {
+                                                using (DataTable dt = new DataTable())
+                                                {
+                                                    sda.Fill(dt);
+
+                                                    dataGridView1.DataSource = dt;
+                                                    dataGridView1.ReadOnly = false;
+                                                    dataGridView1.ClearSelection();
+                                                    dataGridView1.Columns[2].Visible = false;
+                                                    dataGridView1.Columns[4].Visible = false;
+                                                    dataGridView1.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    dataGridView1.Columns[3].HeaderCell.Value = "Name / Model Number";
+                                                    dataGridView1.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    dataGridView1.Columns[3].DefaultCellStyle.ForeColor = Color.Black;
+                                                    dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    dataGridView1.Columns[1].HeaderCell.Value = "";
+                                                    dataGridView1.Columns[1].Width = 50;
+                                                    dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                    dataGridView1.Columns[0].HeaderCell.Value = "";
+                                                    dataGridView1.Columns[0].Width = 50;
+                                                    dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                                 
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+                                    using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
+                                    {
+                                        using (MySqlCommand cmd1 = new MySqlCommand(" INSERT INTO `db`.`repairlogs` (`itemID`, `daterepaired`) VALUES ('" + tester + "',  '" + DateTime.Now + "')", conn))
+                                        {
+                                            cmd1.CommandType = CommandType.Text;
+                                            if (cmd1.ExecuteNonQuery() > 0)
+                                            {
+                                                
+
+
+                                                dataGridView4.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
+                                                dataGridView4.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+
+
+                                                using (MySqlConnection con2 = new MySqlConnection(myConnectionString))
+                                                {
+                                                    using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT repairlogs.daterepaired,itemcontent.modelNumber from repairlogs inner JOIN itemcontent on  itemcontent.id = repairlogs.itemID where itemcontent.itemID = " + EquipmentUI.sendtext + " and repairlogs.daterepaired != '0000-00-00'", conn))
+                                                    {
+                                                        cmd1.CommandType = CommandType.Text;
+                                                        using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd2))
+                                                        {
+                                                            using (DataTable dt = new DataTable())
+                                                            {
+
+                                                                sda.Fill(dt);
+                                                                dataGridView4.DataSource = dt;
+                                                                dataGridView4.ReadOnly = false;
+                                                                dataGridView4.ClearSelection();
+                                                                dataGridView4.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                dataGridView4.Columns[1].HeaderCell.Value = "Name / Model Number";
+                                                                dataGridView4.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                dataGridView4.Columns[1].DefaultCellStyle.ForeColor = Color.Black;
+                                                                dataGridView4.Columns[0].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                dataGridView4.Columns[0].HeaderCell.Value = "Name / Model Number";
+                                                                dataGridView4.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                dataGridView4.Columns[0].DefaultCellStyle.ForeColor = Color.Black;
+                                                                dataGridView4.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                                                dataGridView4.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }
+
+
+
+
+
+
+                        conn.Close();
+                    }
+
+                }
+
+            }//do something
 
         }
     }
