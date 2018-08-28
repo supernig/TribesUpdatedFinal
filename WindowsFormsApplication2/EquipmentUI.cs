@@ -82,7 +82,7 @@ namespace WindowsFormsApplication2
                                             {
                                                 sda.Fill(dt);
                                                 dataGridView1.DataSource = dt;
-                                                dataGridView1.ReadOnly = false;
+                                               
                                                 dataGridView1.ClearSelection();
                                                 dataGridView1.Columns[2].Visible = false;
                                                 dataGridView1.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -139,7 +139,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                          {
                              sda.Fill(dt);
                              dataGridView1.DataSource = dt;
-                             dataGridView1.ReadOnly = false;
+                           
                              dataGridView1.ClearSelection();
                              dataGridView1.Columns[2].Visible = false;
                              dataGridView1.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -192,7 +192,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                            
                              sda.Fill(dt);
                              dataGridView1.DataSource = dt;
-                             dataGridView1.ReadOnly = false;
+                             
                              dataGridView1.ClearSelection();
                              dataGridView1.Columns[2].Visible = false;
                              dataGridView1.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
