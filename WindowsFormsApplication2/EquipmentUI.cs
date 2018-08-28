@@ -31,7 +31,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=;"
++ "pwd=root;"
 + "SslMode=none;"
 + "database=db";
 
@@ -49,7 +49,7 @@ namespace WindowsFormsApplication2
                 }
                 if (e.ColumnIndex == 1)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Are you sure?", "Pls Dont :'(", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show("Are you sure?", "Deleting", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                     if (dialogResult == DialogResult.No)
                     {
                         //do something else
@@ -120,7 +120,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
              string myConnectionString;
              myConnectionString = "server=127.0.0.1;"
  + "uid=root;"
- + "pwd=;"
+ + "pwd=root;"
  + "SslMode=none;"
  + "database=db";
              var a = new EquipmentUI();
@@ -172,7 +172,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
              string myConnectionString;
              myConnectionString = "server=127.0.0.1;"
  + "uid=root;"
- + "pwd=;"
+ + "pwd=root;"
  + "SslMode=none;"
  + "database=db";
              var a = new EquipmentUI();

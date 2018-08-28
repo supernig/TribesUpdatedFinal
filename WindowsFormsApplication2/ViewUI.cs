@@ -136,7 +136,7 @@ namespace WindowsFormsApplication2
 
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=;"
++"pwd=root;"
 + "SslMode=none;"
 + "database=db";
 
@@ -320,11 +320,11 @@ namespace WindowsFormsApplication2
                                         dataGridView4.DataSource = dt;
                                         dataGridView4.ClearSelection();
                                         dataGridView4.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                                        dataGridView4.Columns[1].HeaderCell.Value = "Date & Time";
+                                        dataGridView4.Columns[1].HeaderCell.Value = "Name / Model Number";
                                         dataGridView4.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                         dataGridView4.Columns[1].DefaultCellStyle.ForeColor = Color.Black;
                                         dataGridView4.Columns[0].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                                        dataGridView4.Columns[0].HeaderCell.Value = "Name / Model Number";
+                                        dataGridView4.Columns[0].HeaderCell.Value = "Date & Time";
                                         dataGridView4.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                         dataGridView4.Columns[0].DefaultCellStyle.ForeColor = Color.Black;
                                         dataGridView4.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -357,7 +357,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=;"
++"pwd=root;"
 + "SslMode=none;"
 + "database=db";
 
@@ -375,7 +375,7 @@ namespace WindowsFormsApplication2
                 }
                 if (e.ColumnIndex == 1)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Are you sure?" , "Pls Dont :'(", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show("Are you sure?" , "Processing...;", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.No)
                     {
                         //do something else
@@ -456,7 +456,7 @@ namespace WindowsFormsApplication2
                    if (e.ColumnIndex == 0)
                    {
 
-                       DialogResult dialogResult = MessageBox.Show("Are you sure?", "Pls Dont :'(", MessageBoxButtons.YesNo);
+                       DialogResult dialogResult = MessageBox.Show("Are you sure?", "Processing...;", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                        if (dialogResult == DialogResult.No)
                        {
                            //do something else
@@ -468,7 +468,7 @@ namespace WindowsFormsApplication2
                            string myConnectionString;
                            myConnectionString = "server=127.0.0.1;"
                + "uid=root;"
-               + "pwd=;"
+               +"pwd=root;"
                + "SslMode=none;"
                + "database=db";
                            conn.ConnectionString = myConnectionString;
@@ -590,7 +590,7 @@ namespace WindowsFormsApplication2
                 {
 
 
-                    DialogResult dialogResult = MessageBox.Show("Are you sure?", "Pls Dont :'(", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show("Are you sure?", "Processing...;", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                     if (dialogResult == DialogResult.No)
                     {
                         //do something else
@@ -602,7 +602,7 @@ namespace WindowsFormsApplication2
                         string myConnectionString;
                         myConnectionString = "server=127.0.0.1;"
             + "uid=root;"
-            + "pwd=;"
+            +"pwd=root;"
             + "SslMode=none;"
             + "database=db";
                         conn.ConnectionString = myConnectionString;

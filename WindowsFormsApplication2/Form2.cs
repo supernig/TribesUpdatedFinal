@@ -23,7 +23,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=;"
++ "pwd=root;"
 + "SslMode=none;"
 + "database=db";
             conn.ConnectionString = myConnectionString;
@@ -168,6 +168,11 @@ namespace WindowsFormsApplication2
         {
             textBox1.Text = ViewUI.forEdit;
             comboBox1.SelectedIndex =0;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
