@@ -136,7 +136,7 @@ namespace WindowsFormsApplication2
 
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+"pwd=root;"
++ "pwd=;"
 + "SslMode=none;"
 + "database=db";
 
@@ -359,7 +359,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+"pwd=root;"
++ "pwd=;"
 + "SslMode=none;"
 + "database=db";
 
@@ -470,7 +470,7 @@ namespace WindowsFormsApplication2
                            string myConnectionString;
                            myConnectionString = "server=127.0.0.1;"
                + "uid=root;"
-               +"pwd=root;"
+               + "pwd=;"
                + "SslMode=none;"
                + "database=db";
                            conn.ConnectionString = myConnectionString;
@@ -604,7 +604,7 @@ namespace WindowsFormsApplication2
                         string myConnectionString;
                         myConnectionString = "server=127.0.0.1;"
             + "uid=root;"
-            +"pwd=root;"
+            + "pwd=;"
             + "SslMode=none;"
             + "database=db";
                         conn.ConnectionString = myConnectionString;
