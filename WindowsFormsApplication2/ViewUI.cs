@@ -128,6 +128,10 @@ namespace WindowsFormsApplication2
         public static string forEditID = "";
         private void Form3_Load(object sender, EventArgs e)
         {
+            dataGridView1.ClearSelection();
+            dataGridView2.ClearSelection();
+            dataGridView3.ClearSelection();
+            dataGridView4.ClearSelection();
             var a = new EquipmentUI();
 
             
@@ -136,7 +140,7 @@ namespace WindowsFormsApplication2
 
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+"pwd=root;"
++"pwd=;"
 + "SslMode=none;"
 + "database=db";
 
@@ -174,8 +178,7 @@ namespace WindowsFormsApplication2
             }
             conn.Close();
 
-            dataGridView1.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
-            dataGridView1.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+            
             conn.ConnectionString = myConnectionString;
             conn.Open();
          
@@ -190,8 +193,7 @@ namespace WindowsFormsApplication2
                         {
 
                             sda.Fill(dt);
-                            dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Transparent;
-                            dataGridView1.DefaultCellStyle.SelectionForeColor = Color.Transparent;
+                            
                             dataGridView1.DataSource = dt;
                           
                             dataGridView1.ClearSelection();
@@ -215,8 +217,7 @@ namespace WindowsFormsApplication2
             }
 
             conn.Close();
-            dataGridView2.DefaultCellStyle.SelectionBackColor = dataGridView2.DefaultCellStyle.BackColor;
-            dataGridView2.DefaultCellStyle.SelectionForeColor = dataGridView2.DefaultCellStyle.ForeColor;
+
             conn.ConnectionString = myConnectionString;
             conn.Open();
 
@@ -257,8 +258,7 @@ namespace WindowsFormsApplication2
 
 
             conn.Close();
-            dataGridView3.DefaultCellStyle.SelectionBackColor = dataGridView2.DefaultCellStyle.BackColor;
-            dataGridView3.DefaultCellStyle.SelectionForeColor = dataGridView2.DefaultCellStyle.ForeColor;
+           
             conn.ConnectionString = myConnectionString;
             conn.Open();
 
@@ -273,17 +273,16 @@ namespace WindowsFormsApplication2
                         {
 
                             sda.Fill(dt);
-                            dataGridView3.DefaultCellStyle.SelectionBackColor = Color.Transparent;
-                            dataGridView3.DefaultCellStyle.SelectionForeColor = Color.Transparent;
+                            
                             dataGridView3.DataSource = dt;
-                          
+                            
                             dataGridView3.ClearSelection();
                             dataGridView3.Columns[1].Visible = false;
                             dataGridView3.Columns[3].Visible = false;
                             dataGridView3.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                             dataGridView3.Columns[2].HeaderCell.Value = "Name / Model Number";
                             dataGridView3.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                            dataGridView3.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+
                             dataGridView3.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                             dataGridView3.Columns[1].HeaderCell.Value = "";
                             dataGridView3.Columns[1].Width = 50;
@@ -298,8 +297,7 @@ namespace WindowsFormsApplication2
             }
 
             conn.Close();
-            dataGridView4.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
-            dataGridView4.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+
             conn.ConnectionString = myConnectionString;
             conn.Open();
 
@@ -319,8 +317,7 @@ namespace WindowsFormsApplication2
                                         
                                         dataGridView4.DataSource = dt;
                                         dataGridView4.ClearSelection();
-                                        dataGridView4.DefaultCellStyle.SelectionBackColor = Color.Transparent;
-                                        dataGridView4.DefaultCellStyle.SelectionForeColor = Color.Transparent;
+
                                         dataGridView4.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                         dataGridView4.Columns[1].HeaderCell.Value = "Name / Model Number";
                                         dataGridView4.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -359,7 +356,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+"pwd=root;"
++"pwd=;"
 + "SslMode=none;"
 + "database=db";
 
@@ -470,7 +467,7 @@ namespace WindowsFormsApplication2
                            string myConnectionString;
                            myConnectionString = "server=127.0.0.1;"
                + "uid=root;"
-               +"pwd=root;"
+               +"pwd=;"
                + "SslMode=none;"
                + "database=db";
                            conn.ConnectionString = myConnectionString;
@@ -487,10 +484,7 @@ namespace WindowsFormsApplication2
                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
 
-                                                
-                                                   dataGridView2.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
-                                                   dataGridView2.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
-                                                  
+                                               
 
 
                                                    using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
@@ -505,9 +499,7 @@ namespace WindowsFormsApplication2
 
                                                                
                                                                    sda.Fill(dt);
-                                                                   dataGridView2.DefaultCellStyle.SelectionBackColor = Color.Transparent;
-                                                                   dataGridView2.DefaultCellStyle.SelectionForeColor = Color.Transparent;
-                                                                   dataGridView2.DataSource = dt;
+                                                                  dataGridView2.DataSource = dt;
                                                    
                                                                    dataGridView2.ClearSelection();
                                                                    dataGridView2.Columns[1].Visible = false;
@@ -541,9 +533,7 @@ namespace WindowsFormsApplication2
 
 
                                                                    sda.Fill(dt);
-                                                                   dataGridView3.DefaultCellStyle.SelectionBackColor = Color.Transparent;
-                                                                   dataGridView3.DefaultCellStyle.SelectionForeColor = Color.Transparent;
-                                                                   dataGridView3.DataSource = dt;
+                                                                  dataGridView3.DataSource = dt;
                                                               
                                                                    dataGridView3.ClearSelection();
                                                                    dataGridView3.Columns[1].Visible = false;
@@ -604,7 +594,7 @@ namespace WindowsFormsApplication2
                         string myConnectionString;
                         myConnectionString = "server=127.0.0.1;"
             + "uid=root;"
-            +"pwd=root;"
+            +"pwd=;"
             + "SslMode=none;"
             + "database=db";
                         conn.ConnectionString = myConnectionString;
@@ -622,9 +612,6 @@ namespace WindowsFormsApplication2
 
 
 
-                                    dataGridView3.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
-                                    dataGridView3.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
-
 
 
                                     using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
@@ -639,8 +626,6 @@ namespace WindowsFormsApplication2
 
 
                                                     sda.Fill(dt);
-                                                    dataGridView3.DefaultCellStyle.SelectionBackColor = Color.Transparent;
-                                                    dataGridView3.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                                     dataGridView3.DataSource = dt;
 
                                                     dataGridView3.ClearSelection();
@@ -674,8 +659,6 @@ namespace WindowsFormsApplication2
                                                 using (DataTable dt = new DataTable())
                                                 {
                                                     sda.Fill(dt);
-                                                    dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Transparent;
-                                                    dataGridView1.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                                     dataGridView1.DataSource = dt;
                                                   
                                                     dataGridView1.ClearSelection();
@@ -706,12 +689,9 @@ namespace WindowsFormsApplication2
                                             cmd1.CommandType = CommandType.Text;
                                             if (cmd1.ExecuteNonQuery() > 0)
                                             {
-                                                
 
 
-                                                dataGridView4.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
-                                                dataGridView4.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
-
+                                        
 
                                                 using (MySqlConnection con2 = new MySqlConnection(myConnectionString))
                                                 {
@@ -724,8 +704,7 @@ namespace WindowsFormsApplication2
                                                             {
 
                                                                 sda.Fill(dt);
-                                                                dataGridView4.DefaultCellStyle.SelectionBackColor = Color.Transparent;
-                                                                dataGridView4.DefaultCellStyle.SelectionForeColor = Color.Transparent;
+                                                            
                                                                 dataGridView4.DataSource = dt;
 
                                                                 dataGridView4.ClearSelection();
