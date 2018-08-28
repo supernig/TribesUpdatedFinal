@@ -190,8 +190,10 @@ namespace WindowsFormsApplication2
                         {
 
                             sda.Fill(dt);
+                            dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                            dataGridView1.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                             dataGridView1.DataSource = dt;
-                            dataGridView1.ReadOnly = false;
+                          
                             dataGridView1.ClearSelection();
                             dataGridView1.Columns[2].Visible = false;
                             dataGridView1.Columns[4].Visible = false;
@@ -229,8 +231,10 @@ namespace WindowsFormsApplication2
                         {
 
                             sda.Fill(dt);
+                            dataGridView2.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                            dataGridView2.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                             dataGridView2.DataSource = dt;
-                            dataGridView2.ReadOnly = false;
+                           
                             dataGridView2.ClearSelection();
                             dataGridView2.Columns[1].Visible = false;
                             dataGridView2.Columns[3].Visible = false;
@@ -269,8 +273,10 @@ namespace WindowsFormsApplication2
                         {
 
                             sda.Fill(dt);
+                            dataGridView3.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                            dataGridView3.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                             dataGridView3.DataSource = dt;
-                            dataGridView3.ReadOnly = false;
+                          
                             dataGridView3.ClearSelection();
                             dataGridView3.Columns[1].Visible = false;
                             dataGridView3.Columns[3].Visible = false;
@@ -310,8 +316,8 @@ namespace WindowsFormsApplication2
                                     {
 
                                         sda.Fill(dt);
+                                        
                                         dataGridView4.DataSource = dt;
-                                        dataGridView4.ReadOnly = false;
                                         dataGridView4.ClearSelection();
                                         dataGridView4.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                         dataGridView4.Columns[1].HeaderCell.Value = "Date & Time";
@@ -401,9 +407,10 @@ namespace WindowsFormsApplication2
                                                 using (DataTable dt = new DataTable())
                                                 {
                                                     sda.Fill(dt);
-                                                   
+                                                    dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                                                    dataGridView1.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                                     dataGridView1.DataSource = dt;
-                                                    dataGridView1.ReadOnly = false;
+                                               
                                                     dataGridView1.ClearSelection();
                                                     dataGridView1.Columns[2].Visible = false;
                                                     dataGridView1.Columns[4].Visible = false;
@@ -496,8 +503,10 @@ namespace WindowsFormsApplication2
 
                                                                
                                                                    sda.Fill(dt);
+                                                                   dataGridView2.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                                                                   dataGridView2.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                                                    dataGridView2.DataSource = dt;
-                                                                   dataGridView2.ReadOnly = false;
+                                                   
                                                                    dataGridView2.ClearSelection();
                                                                    dataGridView2.Columns[1].Visible = false;
                                                                    //dataGridView2.Columns[3].Visible = false;
@@ -530,8 +539,10 @@ namespace WindowsFormsApplication2
 
 
                                                                    sda.Fill(dt);
+                                                                   dataGridView3.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                                                                   dataGridView3.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                                                    dataGridView3.DataSource = dt;
-                                                                   dataGridView3.ReadOnly = false;
+                                                              
                                                                    dataGridView3.ClearSelection();
                                                                    dataGridView3.Columns[1].Visible = false;
                                                                    //dataGridView2.Columns[3].Visible = false;
@@ -626,8 +637,10 @@ namespace WindowsFormsApplication2
 
 
                                                     sda.Fill(dt);
+                                                    dataGridView3.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                                                    dataGridView3.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                                     dataGridView3.DataSource = dt;
-                                                    dataGridView3.ReadOnly = false;
+
                                                     dataGridView3.ClearSelection();
                                                     dataGridView3.Columns[1].Visible = false;
                                                     //dataGridView2.Columns[3].Visible = false;
@@ -659,9 +672,10 @@ namespace WindowsFormsApplication2
                                                 using (DataTable dt = new DataTable())
                                                 {
                                                     sda.Fill(dt);
-
+                                                    dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                                                    dataGridView1.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                                     dataGridView1.DataSource = dt;
-                                                    dataGridView1.ReadOnly = false;
+                                                  
                                                     dataGridView1.ClearSelection();
                                                     dataGridView1.Columns[2].Visible = false;
                                                     dataGridView1.Columns[4].Visible = false;
@@ -708,8 +722,10 @@ namespace WindowsFormsApplication2
                                                             {
 
                                                                 sda.Fill(dt);
+                                                                dataGridView4.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                                                                dataGridView4.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                                                 dataGridView4.DataSource = dt;
-                                                                dataGridView4.ReadOnly = false;
+
                                                                 dataGridView4.ClearSelection();
                                                                 dataGridView4.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                                                 dataGridView4.Columns[1].HeaderCell.Value = "Name / Model Number";
@@ -745,6 +761,11 @@ namespace WindowsFormsApplication2
                 }
 
             }//do something
+
+        }
+
+        private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }
