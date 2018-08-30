@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
-
+//dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() 
 namespace WindowsFormsApplication2
 {
     public partial class ViewUI : Form
@@ -140,7 +140,7 @@ namespace WindowsFormsApplication2
 
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+"pwd=;"
++ "pwd=root;"
 + "SslMode=none;"
 + "database=db";
 
@@ -223,8 +223,8 @@ namespace WindowsFormsApplication2
 
             using (MySqlConnection con = new MySqlConnection(myConnectionString))
             {
-                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 2", conn))
-                {
+                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id,damagelogs.datedamaged from items left join itemcontent on items.id = itemcontent.itemID inner JOIN damagelogs on  itemcontent.id = damagelogs.itemid where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 2 and damagelogs.datedamaged != '0000-00-00'", conn))
+                {                                                                                       //SELECT damagelogs.daterdamaged,itemcontent.modelNumber from repairlogs inner JOIN itemcontent on  itemcontent.id = repairlogs.itemID where itemcontent.itemID = " + EquipmentUI.sendtext + " and repairlogs.daterepaired != '0000-00-00'
                     cmd.CommandType = CommandType.Text;
                     using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
                     {
@@ -243,6 +243,7 @@ namespace WindowsFormsApplication2
                             dataGridView2.Columns[2].HeaderCell.Value = "Name / Model Number";
                             dataGridView2.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                             dataGridView2.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+                            dataGridView2.Columns[4].DefaultCellStyle.ForeColor = Color.Black;
                             dataGridView2.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                             dataGridView2.Columns[1].HeaderCell.Value = "";
                             dataGridView2.Columns[1].Width = 50;
@@ -250,7 +251,10 @@ namespace WindowsFormsApplication2
                             dataGridView2.Columns[0].HeaderCell.Value = "";
                             dataGridView2.Columns[0].Width = 100;
                             dataGridView2.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
+                            dataGridView2.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                            dataGridView2.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView2.Columns[4].HeaderCell.Value = "Date & Time";
+                            dataGridView2.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                         }
                     }
                 }
@@ -356,7 +360,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+"pwd=;"
++ "pwd=root;"
 + "SslMode=none;"
 + "database=db";
 
@@ -424,12 +428,14 @@ namespace WindowsFormsApplication2
                                                     dataGridView1.Columns[0].HeaderCell.Value = "";
                                                     dataGridView1.Columns[0].Width = 50;
                                                     dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                                                    MessageBox.Show("Data Deleted!", "Successful ",
+                                                    MessageBox.Show("Successful!", "Successful ",
     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                                 }
                                             }
                                         }
                                     }
+
+
                                 }
                             }
                         }
@@ -467,11 +473,9 @@ namespace WindowsFormsApplication2
                            string myConnectionString;
                            myConnectionString = "server=127.0.0.1;"
                + "uid=root;"
-<<<<<<< HEAD
-               +"pwd=;"
-=======
-               + "pwd=;"
->>>>>>> e26fd24f1da1603ad7388d25b289be066791ec03
+
+               + "pwd=root;"
+
                + "SslMode=none;"
                + "database=db";
                            conn.ConnectionString = myConnectionString;
@@ -598,7 +602,7 @@ namespace WindowsFormsApplication2
                         string myConnectionString;
                         myConnectionString = "server=127.0.0.1;"
             + "uid=root;"
-            +"pwd=;"
+            + "pwd=root;"
             + "SslMode=none;"
             + "database=db";
                         conn.ConnectionString = myConnectionString;
@@ -693,10 +697,6 @@ namespace WindowsFormsApplication2
                                             cmd1.CommandType = CommandType.Text;
                                             if (cmd1.ExecuteNonQuery() > 0)
                                             {
-
-
-                                        
-
                                                 using (MySqlConnection con2 = new MySqlConnection(myConnectionString))
                                                 {
                                                     using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT repairlogs.daterepaired,itemcontent.modelNumber from repairlogs inner JOIN itemcontent on  itemcontent.id = repairlogs.itemID where itemcontent.itemID = " + EquipmentUI.sendtext + " and repairlogs.daterepaired != '0000-00-00'", conn))

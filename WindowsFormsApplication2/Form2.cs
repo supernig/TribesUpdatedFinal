@@ -23,7 +23,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=;"
++ "pwd=root;"
 + "SslMode=none;"
 + "database=db";
             conn.ConnectionString = myConnectionString;
@@ -110,22 +110,24 @@ namespace WindowsFormsApplication2
                                     }
 
 
-                                    using (MySqlConnection con2 = new MySqlConnection(myConnectionString))
+                           
+
+
+                                    using (MySqlConnection con5 = new MySqlConnection(myConnectionString))
                                     {
-                                        using (MySql.Data.MySqlClient.MySqlCommand cmd2 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id from items left join itemcontent on items.id = itemcontent.itemID where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 2", conn))
-                                        {
-                                            cmd.CommandType = CommandType.Text;
-                                            using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd2))
+                                        using (MySql.Data.MySqlClient.MySqlCommand cmd5 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id,damagelogs.datedamaged from items left join itemcontent on items.id = itemcontent.itemID inner JOIN damagelogs on  itemcontent.id = damagelogs.itemid where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 2 and damagelogs.datedamaged != '0000-00-00'", conn))
+                                        {                                                                                       //SELECT damagelogs.daterdamaged,itemcontent.modelNumber from repairlogs inner JOIN itemcontent on  itemcontent.id = repairlogs.itemID where itemcontent.itemID = " + EquipmentUI.sendtext + " and repairlogs.daterepaired != '0000-00-00'
+                                            cmd5.CommandType = CommandType.Text;
+                                            using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd5))
                                             {
                                                 using (DataTable dt = new DataTable())
                                                 {
 
-                                                
-
-
                                                     sda.Fill(dt);
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.DefaultCellStyle.SelectionForeColor = Color.Transparent;
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.DataSource = dt;
-                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.ReadOnly = false;
+
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.ClearSelection();
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].Visible = false;
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[3].Visible = false;
@@ -133,6 +135,7 @@ namespace WindowsFormsApplication2
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].HeaderCell.Value = "Name / Model Number";
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[4].DefaultCellStyle.ForeColor = Color.Black;
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].HeaderCell.Value = "";
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].Width = 50;
@@ -140,6 +143,59 @@ namespace WindowsFormsApplication2
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[0].HeaderCell.Value = "";
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[0].Width = 100;
                                                     (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                                    (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+
+
+
+
+                                    using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
+                                    {
+                                        using (MySqlCommand cmd2 = new MySqlCommand(" INSERT INTO `db`.`damagelogs` (`itemID`, `datedamaged`) VALUES ('" + ViewUI.forEditID + "',  '" + DateTime.Now + "')", conn))
+                                        {
+                                            cmd2.CommandType = CommandType.Text;
+                                            if (cmd2.ExecuteNonQuery() > 0)
+                                            {
+
+
+                                    
+                                                using (MySqlConnection con2 = new MySqlConnection(myConnectionString))
+                                                {
+                                                    using (MySql.Data.MySqlClient.MySqlCommand cmd4 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,itemcontent.modelNumber,itemcontent.id,damagelogs.datedamaged from items left join itemcontent on items.id = itemcontent.itemID inner JOIN damagelogs on  itemcontent.id = damagelogs.itemid where items.id =" + EquipmentUI.sendtext + " and itemcontent.tagID = 2 and damagelogs.datedamaged != '0000-00-00'", conn))
+                                                    {
+                                                        cmd4.CommandType = CommandType.Text;
+                                                        using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd4))
+                                                        {
+                                                            using (DataTable dt = new DataTable())
+                                                            {
+
+                                                                sda.Fill(dt);
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.DefaultCellStyle.SelectionForeColor = Color.Transparent;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.DataSource = dt;
+
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.ClearSelection();
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].Visible = false;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[3].Visible = false;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].HeaderCell.Value = "Name / Model Number";
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].HeaderCell.Value = "";
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[1].Width = 50;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[0].HeaderCell.Value = "";
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[0].Width = 100;
+                                                                (System.Windows.Forms.Application.OpenForms["ViewUI"] as ViewUI).dataGridView2.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }

@@ -31,7 +31,7 @@ namespace WindowsFormsApplication2
             string myConnectionString;
             myConnectionString = "server=127.0.0.1;"
 + "uid=root;"
-+ "pwd=;"
++ "pwd=root;"
 + "SslMode=none;"
 + "database=db";
 
@@ -73,7 +73,7 @@ namespace WindowsFormsApplication2
 
                                 using (MySqlConnection con1 = new MySqlConnection(myConnectionString))
                                 {
-                                    using (MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,items.name,items.stocks FROM items ", conn))
+                                    using (MySql.Data.MySqlClient.MySqlCommand cmd1 = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,items.name FROM items ", conn))
                                     {
                                         cmd1.CommandType = CommandType.Text;
                                         using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd1))
@@ -88,9 +88,7 @@ namespace WindowsFormsApplication2
                                                 dataGridView1.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                                 dataGridView1.Columns[3].HeaderCell.Value = "Name";
                                                 dataGridView1.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                                                dataGridView1.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                                                dataGridView1.Columns[4].HeaderCell.Value = "Stocks";
-                                                dataGridView1.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                                
                                                 dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                                 dataGridView1.Columns[1].HeaderCell.Value = "";
                                                 dataGridView1.Columns[1].Width = 50;
@@ -98,7 +96,6 @@ namespace WindowsFormsApplication2
                                                 dataGridView1.Columns[0].HeaderCell.Value = "";
                                                 dataGridView1.Columns[0].Width = 50;
                                                 dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                                                dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                                                 MessageBox.Show("Data Deleted!", "Successful ",
 MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                             }
@@ -116,50 +113,50 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
          public  void refreshni()
          {
-             MySql.Data.MySqlClient.MySqlConnection conn = new MySqlConnection();
-             string myConnectionString;
-             myConnectionString = "server=127.0.0.1;"
- + "uid=root;"
- + "pwd=;"
- + "SslMode=none;"
- + "database=db";
-             var a = new EquipmentUI();
-             dataGridView1.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
-             dataGridView1.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
-             conn.ConnectionString = myConnectionString;
-             conn.Open();
-             using (MySqlConnection con = new MySqlConnection(myConnectionString))
-             {
-                 using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,items.name,items.stocks FROM items ", conn))
-                 {
-                     cmd.CommandType = CommandType.Text;
-                     using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
-                     {
-                         using (DataTable dt = new DataTable())
-                         {
-                             sda.Fill(dt);
-                             dataGridView1.DataSource = dt;
-                           
-                             dataGridView1.ClearSelection();
-                             dataGridView1.Columns[2].Visible = false;
-                             dataGridView1.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                             dataGridView1.Columns[3].HeaderCell.Value = "Name";
-                             dataGridView1.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                             dataGridView1.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                             dataGridView1.Columns[4].HeaderCell.Value = "Stock";
-                             dataGridView1.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                             dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                             dataGridView1.Columns[1].HeaderCell.Value = "";
-                             dataGridView1.Columns[1].Width = 50;
-                             dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                             dataGridView1.Columns[0].HeaderCell.Value = "";
-                             dataGridView1.Columns[0].Width = 50;
-                             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                         }
-                     }
-                 }
-             }
+            MySql.Data.MySqlClient.MySqlConnection conn = new MySqlConnection();
+            string myConnectionString;
+            myConnectionString = "server=127.0.0.1;"
++ "uid=root;"
++ "pwd=root;"
++ "SslMode=none;"
++ "database=db";
+            var a = new EquipmentUI();
+            dataGridView1.DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
+            dataGridView1.DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+            conn.ConnectionString = myConnectionString;
+            conn.Open();
+            using (MySqlConnection con = new MySqlConnection(myConnectionString))
+            {
+                using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("Select items.id,items.name from items", conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
+                    {
+                        using (DataTable dt = new DataTable())
+                        {
+
+                            sda.Fill(dt);
+                            dataGridView1.DataSource = dt;
+
+                            dataGridView1.ClearSelection();
+                            dataGridView1.Columns[2].Visible = false;
+                            dataGridView1.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView1.Columns[3].HeaderCell.Value = "Name";
+                            dataGridView1.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            // dataGridView1.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                            dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView1.Columns[1].HeaderCell.Value = "";
+                            dataGridView1.Columns[1].Width = 50;
+                            dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            dataGridView1.Columns[0].HeaderCell.Value = "";
+                            dataGridView1.Columns[0].Width = 50;
+                            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                            // dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        }
+                    }
+                }
+            }
         }
 
      
@@ -172,7 +169,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
              string myConnectionString;
              myConnectionString = "server=127.0.0.1;"
  + "uid=root;"
- + "pwd=;"
+ + "pwd=root;"
  + "SslMode=none;"
  + "database=db";
              var a = new EquipmentUI();
@@ -182,7 +179,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
              conn.Open();
              using (MySqlConnection con = new MySqlConnection(myConnectionString))
              {
-                 using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT items.id,items.name,items.stocks FROM items ", conn))
+                 using (MySql.Data.MySqlClient.MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand("Select items.id,items.name from items", conn))
                  {
                      cmd.CommandType = CommandType.Text;
                      using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
@@ -198,9 +195,8 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                              dataGridView1.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                              dataGridView1.Columns[3].HeaderCell.Value = "Name";
                              dataGridView1.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                             dataGridView1.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                             dataGridView1.Columns[4].HeaderCell.Value = "Stock";
-                             dataGridView1.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            // dataGridView1.Columns[4].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                             
                              dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                              dataGridView1.Columns[1].HeaderCell.Value = "";
                              dataGridView1.Columns[1].Width = 50;
@@ -208,7 +204,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                              dataGridView1.Columns[0].HeaderCell.Value = "";
                              dataGridView1.Columns[0].Width = 50;
                              dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                            // dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                          }
                      }
                  }
